@@ -118,7 +118,7 @@ def create_app(test_config=None):
         try:
             search_term = request.get_json().get('searchTerm')
             selection = Question.query.filter(
-                Question.question.like('%' + search_term + '%')).all()
+                Question.question.ilike('%' + search_term + '%')).all()
             current_questions = paginate_questions(request, selection)
 
             if len(current_questions) == 0:
@@ -184,11 +184,6 @@ def create_app(test_config=None):
         except:
             abort(422)
 
-    '''
-  @TODO: 
-  Create error handlers for all expected errors 
-  including 404 and 422. 
-  '''
     @app.errorhandler(404)
     def not_found(error):
         return jsonify({

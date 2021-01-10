@@ -133,7 +133,7 @@ class TriviaTestCase(unittest.TestCase):
 
         self.assertTrue(response['success'])
 
-        db_search = Question.query.filter(Question.question.like(
+        db_search = Question.query.filter(Question.question.ilike(
             '%' + inserted_question['question'][0:7] + '%')).all()
 
         if len(db_search) >= 10:
